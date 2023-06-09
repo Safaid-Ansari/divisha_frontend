@@ -1,17 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+// 1. Import the extendTheme function
+import { extendTheme, ChakraProvider } from "@chakra-ui/react";
+import { BrowserRouter } from "react-router-dom";
+import SellerProvider from "./context/SellerProvider";
+import Header from "./components/Header";
+const root = ReactDOM.createRoot(document.getElementById("root"));
+// 2. Extend the theme to include custom colors, fonts, etc
+const colors = {
+  brand: {
+    900: "#1a365d",
+    800: "#153e75",
+    700: "#2a69ac",
+  },
+};
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const theme = extendTheme({ colors });
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <BrowserRouter>
+    <Header></Header>
+    <SellerProvider>
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+    </SellerProvider>
+  </BrowserRouter>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
